@@ -3,7 +3,7 @@ $(document).ready(
 		$("#addFormSubmit").click(
 				function () {
 
-				    var formData = $("#addForm").serializeArray();
+				    var formData = $("#addForm").serialize();
 //
 				    ///////////////////////////////////////q
 //

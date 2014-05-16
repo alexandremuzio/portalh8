@@ -3,12 +3,14 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
 import csv
 import os
 from models import * 
+
 app = Flask(__name__)
 
+
 def configure_app():
-	f = open('password.txt', 'r')
-	username = f.readline().rstrip()
-	password = f.readline().rstrip()
+	#f = open('password.txt', 'r')
+	username = 'a'
+	password = 'b'
 	print username, password
 	# Load default config and override config from an environment variable
 	app.config.update(dict(
@@ -32,18 +34,21 @@ def index():
 def add():
 	error = None
 	if request.method == 'POST':
+		print "received post"
 		name = request.form['name']
 		nname = request.form['nick_name']
+		print nname
 		course = request.form['course']
 		graduation_year = request.form['graduation_year']
 		telephone = request.form['telephone']
 		email = request.form['email']
-			
+		print email
 		resident = Resident(name, nname, course, graduation_year, 
 							telephone, email)
 		try:
 			db.session.add(resident)
 			db.session.commit()
+		#IntegrityError 
 		except Exception, e:
 			return jsonify({'success' : False, 'name' : name})
 
@@ -128,6 +133,6 @@ def login():
 #     db.session.commit() # commiting the session
 #     return "It worked"
 
-if __name__ == '__main__':
-	configure_app()
-	app.run(debug=True)
+
+configure_app()
+app.run(debug=True)
