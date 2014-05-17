@@ -44,6 +44,11 @@ class Address(db.Model):
         self.allocation = allocation
         self.resident_id = resident_id
 
+    def __init__(self, quarter, apartment, allocation):
+        self.quarter = quarter
+        self.apartment = apartment
+        self.allocation = allocation
+
     def __repr__(self):
         return '<Quarter %s : Apartment: %s, Allocation %s, Resident Id %s, Id %s>' \
                                  % (self.quarter, self.apartment, self.allocation,  \
@@ -59,3 +64,24 @@ class User(db.Model):
         self.username = username
         self.email = email
         self.password_hash = password_hash
+
+def create_address():
+    db.create_all()
+    for apartment in range (301,331):
+        for allocation in range(ord('A'), ord('G')):
+            address = Address('H8C', str(apartment), chr(allocation))
+            db.session.add(address)
+    for apartment in range (101, 132):
+        for allocation in range(ord('A'), ord('G')):
+            addressB = Address('H8B', str(apartment+100), chr(allocation))
+            addressC = Address('H8C', str(apartment), chr(allocation))
+            db.session.add(addressB)
+            db.session.add(addressC)
+    for apartment in range (132,143):
+        for allocation in range(ord('A'), ord ('E')):
+            addressB = Address('H8B', str(apartment+100), chr(allocation))
+            addressC = Address('H8C', str(apartment), chr(allocation))
+            db.session.add(addressB)
+            db.session.add(addressC)
+    db.session.commit()
+    

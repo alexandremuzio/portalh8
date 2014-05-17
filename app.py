@@ -122,6 +122,27 @@ def login():
         #return redirect(request.args.get("next") or url_for("index"))
     # return render_template("admin.html")
 
+#@app.cli.command('create_address')
+def create_address():
+    db.create_all()
+    for apartment in range (301,331):
+        for allocation in range(ord('A'), ord('G')):
+            address = Address('H8C', str(apartment), chr(allocation))
+            db.session.add(address)
+    for apartment in range (101, 132):
+        for allocation in range(ord('A'), ord('G')):
+            addressB = Address('H8B', str(apartment+100), chr(allocation))
+            addressC = Address('H8C', str(apartment), chr(allocation))
+            db.session.add(addressB)
+            db.session.add(addressC)
+    for apartment in range (132,143):
+        for allocation in range(ord('A'), ord ('E')):
+            addressB = Address('H8B', str(apartment+100), chr(allocation))
+            addressC = Address('H8C', str(apartment), chr(allocation))
+            db.session.add(addressB)
+            db.session.add(addressC)
+    db.session.commit()
+
 # @app.cli.command('populate')
 # def populate():
 #     filename = 'test.csv' # file containing comma separated informations about residents
