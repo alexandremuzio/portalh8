@@ -2,13 +2,13 @@
 <html lang="en">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
-        <title>Portal H8 - Adicionar Morador</title>
+        <title>Portal H8 - Modificação</title>
         <meta name="generator" content="Bootply" />
-        <meta name="description" content="Página destinada à adição de moradores do H8." />
+        <meta name="description" content="Página destinada à modificação de usuários do Portal H8." />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="../static/javascripts/add.js"></script>
+        <script type="text/javascript" src="../static/javascripts/modify.js"></script>
     </head>
     
        
@@ -18,83 +18,92 @@
 
         <div class="row">
             <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <form id="addForm" name="add" role="form">
+            <form id="modifyForm" name="modify" role="form">
               
-                <h2>Preencha os campos abaixo.<small></small></h2>
+                <h2>Altere os campos abaixo.<small></small></h2>
                 
                 <div id="box" class="holdingbox" style="width: 150px; height: 150px; overflow: hidden; margin: auto;">
                   <div id="wrapper" class="wrapper">
                     <img id="image" src="../static/default-photo.png" height="150" width="150" style="display: block; margin-left: auto; margin-right: auto;">
-                    <div id="info" style="width: 150px; height: 20px; display: inline-block; position: relative; background-color: grey; text-align: center; color: white;">Adicionar foto</div>
+                    <div id="info" style="width: 150px; height: 20px; display: inline-block; position: relative; background-color: grey; text-align: center; color: white;">Mudar foto</div>
                   </div>
                 </div>
 
                 <div class="form-group">
                   <input style="display:none" type="file" name="photo" id="photo" class="form-control input-lg" label="Foto" tabindex="1" accept="image/gif, image/jpeg, image/png">
-                </div>  
+                </div>
 
+                <div class="form-group">
+                  <input type="text" name="name" id="name" class="form-control input-lg" placeholder="Nome" tabindex="2">
+                </div>
 
                 <div class="form-group">
                   <input type="text" name="nick_name" id="nick_name" class="form-control input-lg" placeholder="Apelido" tabindex="3">
                 </div>
                 
                 <div class="row">
+
                   <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                       <input type="text" name="apartment" id="apartment" class="form-control input-lg" placeholder="Apartamento" tabindex="4">
                     </div>
                   </div>
+
                   <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                       <input type="text" name="allocation" id="allocation" class="form-control input-lg" placeholder="Vaga" tabindex="5">
                     </div>
                   </div>
                 </div>
+
                 <div class="row">
+
                   <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                       <input type="text" name="course" id="course" class="form-control input-lg" placeholder="Curso" tabindex="6">
                     </div>
                   </div>
+
                   <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                       <input type="text" name="graduation_year" id="graduation_year" class="form-control input-lg" placeholder="Turma" tabindex="7">
                     </div>
                   </div>
+
                 </div>
+
                 <div class="form-group">
                   <input type="text" name="email" id="email" class="form-control input-lg" placeholder="Email" tabindex="8">
                 </div>
+
                 <div class="form-group">
                   <input type="text" name="telephone" id="telephone" class="form-control input-lg" placeholder="Telefone" tabindex="9">
                 </div>
 
-                
-
-                <div class="row">
-                  <div class="col-xs-3 col-sm-3 col-md-3">
-                    <span class="button-checkbox">
-                      <button type="button" class="btn" data-color="info" tabindex="7">CAIW</button>
-                    </span>
-                  </div>
-                  <div class="col-xs-9 col-sm-9 col-md-9">
-                     Confira todos os campos antes de clicar em <strong class="label label-success">Adicionar</strong>.  
-                  </div>
-                </div>
-                  <div class="row">
-                    <div class="col-xs-6 col-md-6"><a href="admin" class="btn btn-danger btn-block btn-lg">Voltar</a></div>
-                    <div class="col-xs-6 col-md-6"><a id="addFormSubmit" class="btn btn-block btn-lg btn-success">Adicionar</a></div>
-                  </div>
-            </form>
-
-            <div id="success" hidden="true">
-              <h2 id="response"></h2>
-              <br>
               <div class="row">
-                <div class="col-xs-6 col-md-6"><a href="admin" class="btn btn-danger btn-block btn-lg">Voltar</a></div>
-                <div class="col-xs-6 col-md-6"><a href="" class="btn btn-block btn-lg btn-primary">Adicionar Outro</a></div>
+
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                  <span class="button-checkbox">
+                    <button type="button" class="btn" data-color="info" tabindex="7">CAIW</button>
+                  </span>
+                </div>
+
+                <div class="col-xs-9 col-sm-9 col-md-9">
+                   Apenas clique em <strong class="label label-success">Salvar</strong> quando tiver confirmado as alterações.  
+                </div>
+
               </div>
-            </div>
+
+              <div class="row">
+
+                <div id="remove" class="col-xs-6 col-md-6"><a href="admin" class="btn btn-danger btn-block btn-lg">Remover</a></div>
+                <div id="save" class="col-xs-6 col-md-6"><a href="admin" class="btn btn-success btn-block btn-lg" tabindex="7">Salvar</a></div>
+              
+              </div>
+              
+              <div id="back" style="width: 60%; margin: 8px auto 10px auto;"><a href="home.html" class="btn btn-primary btn-block btn-lg">Voltar</a></div>
+              
+            </form>
           </div>
         </div>
         </div>
