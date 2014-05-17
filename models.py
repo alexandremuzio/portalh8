@@ -60,28 +60,9 @@ class User(db.Model):
     email = db.Column(db.String(200))
     password_hash = db.Column(db.String(500))
 
-    def __init__(self, username, email, passord_hash):
+    def __init__(self, username, email, password_hash):
         self.username = username
         self.email = email
         self.password_hash = password_hash
 
-def create_address():
-    db.create_all()
-    for apartment in range (301,331):
-        for allocation in range(ord('A'), ord('G')):
-            address = Address('H8C', str(apartment), chr(allocation))
-            db.session.add(address)
-    for apartment in range (101, 132):
-        for allocation in range(ord('A'), ord('G')):
-            addressB = Address('H8B', str(apartment+100), chr(allocation))
-            addressC = Address('H8C', str(apartment), chr(allocation))
-            db.session.add(addressB)
-            db.session.add(addressC)
-    for apartment in range (132,143):
-        for allocation in range(ord('A'), ord ('E')):
-            addressB = Address('H8B', str(apartment+100), chr(allocation))
-            addressC = Address('H8C', str(apartment), chr(allocation))
-            db.session.add(addressB)
-            db.session.add(addressC)
-    db.session.commit()
     

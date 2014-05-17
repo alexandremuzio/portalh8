@@ -1,6 +1,7 @@
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash, make_response, jsonify
 from sqlite3 import dbapi2 as sqlite3
 from models import * 
+from database import *
 import csv, hmac, hashlib, os
 
 app = Flask(__name__)
@@ -26,7 +27,8 @@ def configure_app():
 
 @app.route('/')
 def index():
-    return make_response(open('templates/index.html').read())
+	admin_ilharco() #for testing purposes
+	return make_response(open('templates/index.html').read())
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -103,10 +105,12 @@ def login():
 		user = User.query.filter_by(username=name).first()
 
 		#verifying if there is a match
-		if (user is None):
+		if (user is None or user.password_hash != pass_hash):
 			return jsonify({'success': False})
 		else:
+
 			response = make_response(redirect('/'))
+			print ('Login Successfull')
 			return jsonify({'success': True, 'username': name, 'pass_hash': pass_hash})
 			
 			#response.set_cookie('username + ph', name + '_' + pass_hash)
@@ -122,26 +126,6 @@ def login():
         #return redirect(request.args.get("next") or url_for("index"))
     # return render_template("admin.html")
 
-#@app.cli.command('create_address')
-def create_address():
-    db.create_all()
-    for apartment in range (301,331):
-        for allocation in range(ord('A'), ord('G')):
-            address = Address('H8C', str(apartment), chr(allocation))
-            db.session.add(address)
-    for apartment in range (101, 132):
-        for allocation in range(ord('A'), ord('G')):
-            addressB = Address('H8B', str(apartment+100), chr(allocation))
-            addressC = Address('H8C', str(apartment), chr(allocation))
-            db.session.add(addressB)
-            db.session.add(addressC)
-    for apartment in range (132,143):
-        for allocation in range(ord('A'), ord ('E')):
-            addressB = Address('H8B', str(apartment+100), chr(allocation))
-            addressC = Address('H8C', str(apartment), chr(allocation))
-            db.session.add(addressB)
-            db.session.add(addressC)
-    db.session.commit()
 
 # @app.cli.command('populate')
 # def populate():
