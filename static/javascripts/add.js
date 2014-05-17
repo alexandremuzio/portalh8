@@ -4,7 +4,7 @@ $(document).ready(
 			function () {
 	    		var formData = $("#addForm").serialize();
 //
-				    ///////////////////////////////////////q
+				    ///////////////////////////////////////
 //
 				    //$("#response").html(formData.first_name + " adicionado com sucesso.");
 				    //$("#addForm").fadeOut(function () { $("#success").fadeIn(); });
