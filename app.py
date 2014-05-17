@@ -101,23 +101,22 @@ def login():
 		to_hash.update(password)
 		pass_hash = to_hash.hexdigest()
 
-		response = make_response(redirect('/'))
-		response.set_cookie('username + ph', name + '$$$$$' + pass_hash)
+		# searching for user in database
+		user = User.query.filter_by(username=name).first()
 
-		return response
+		#verifying if there is a match
+		if (user is None):
+			return jsonify({'success': False})
+		else:
+			response = make_response(redirect('/'))
+			return jsonify({'success': True, 'username': name, 'pass_hash': pass_hash})
+			
+			#response.set_cookie('username + ph', name + '_' + pass_hash)
+			#return response
 	else :
 		return render_template('admin.html', error=error)
-	# form = LoginForm()	
-	# if form.validate_on_submit():
-        # login and validate the user...
-        #login_user(user)
-        #flash("Logged in successfully.")
-        #return redirect(request.args.get("next") or url_for("index"))
-    # return render_template("admin.html")
 
 
-
-# @app.route('/populate')
 # def populate():
 #     filename = 'test.csv' # file containing comma separated informations about residents
 #     db.create_all()
@@ -142,7 +141,7 @@ def login():
 #     address = Address(quarter, apartment, allocation, resident.id) # creating the address as a Python object
 #     db.session.add(address)    # adding it to the session
 #     db.session.commit() # commiting the session
-#     return "It worked"
+#      return "It worked"
 
 
 configure_app()
