@@ -1,0 +1,200 @@
+
+html {
+	font-family: Verdana;
+}
+#wrap h1 {
+	margin-bottom: 50px;
+}
+
+#map * {
+	box-sizing: border-box;
+}
+
+#map {
+	background-color: #666;
+	width: 600px;
+	padding: 10px 25px;
+	margin: 0 auto;
+	overflow: hidden;
+
+	/* disable selection  */
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+#map > div {
+	float: left;
+	width: 150px;
+	margin: 25px 25px;
+	background-color: #FFF;
+	border: 4px solid #444;
+}
+
+#map .quarter-top {
+	/*height: 448px;*/
+	/*overflow: hidden;*/
+}
+
+#map > div.quarter-c {
+	margin-top: 47px;
+}
+
+#map .quarter-bottom {
+	/*height: 320px;*/
+}
+
+#map > div > div {
+	padding: 5px;
+}
+
+#map .quarter-bottom, #map .quarter-top {
+	position: relative;
+}
+
+#map .label {
+	width: 100%;
+	position: absolute;
+	text-align: center;
+	color: #FFFFFF;
+	left: 0px;
+}
+
+#map .quarter-top:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+#map .quarter-top .label {
+	top: -25px;
+}
+
+#map .quarter-bottom .label {
+	bottom: -23px;
+}
+
+#map .apartment {
+	background-color: #444444;
+	padding: 2px;
+	margin: 3px;
+	text-align: center;
+	color: #FFF;
+	font-size: 13px;
+	cursor: pointer;
+	height: 20px;
+	-webkit-transition: all 0.5s cubic-bezier(0.64, 0.44, 0.38, 0.61);
+    -moz-transition: all 0.5s cubic-bezier(0.64, 0.44, 0.38, 0.61);
+    -o-transition: all 0.5s cubic-bezier(0.64, 0.44, 0.38, 0.61);
+    transition: all 0.5s cubic-bezier(0.64, 0.44, 0.38, 0.61);
+}
+
+#map .apartment-wrapper {
+	overflow: hidden;
+	margin-bottom: -3px;
+}
+
+#map .apartment.dummy {
+	display: block;
+	opacity: 0;
+	cursor: default;
+}
+
+#map .apartment .spot-wrapper.ghost {
+	opacity: 0;
+}
+
+#map .double .apartment {
+	width: 60px;
+}
+
+#map .double .apartment.left {
+	/* float: left; */
+} 
+
+#map .double .apartment.right {
+	float: right;
+	margin-top: -23px;
+}
+
+#map .apartment:hover {
+	color: #FFFFFF;
+	background-color: #4E4E4E;
+}
+
+#map .apartment .content {
+	overflow: hidden;
+	height: 0;
+	opacity: 0;
+	padding: 0 4px;
+	margin-top: 0;
+	width: 122px;
+	-webkit-transition: all 0.5s cubic-bezier(0.64, 0.44, 0.38, 0.61);
+    -moz-transition: all 0.5s cubic-bezier(0.64, 0.44, 0.38, 0.61);
+    -o-transition: all 0.5s cubic-bezier(0.64, 0.44, 0.38, 0.61);
+    transition: all 0.5s cubic-bezier(0.64, 0.44, 0.38, 0.61);
+}
+
+#map .apartment.detail .content, #map .double .apartment.detail .content {
+	opacity: 1;
+	height: 80px;
+	width: 122px;
+	padding: 4px;
+}
+#map .double .apartment .content.right { 
+	float: right;
+}
+
+#map .apartment.detail {
+	height: 100px;
+}
+#map .double .apartment.detail {
+	width: 126px;
+}
+#map .double .apartment.right.detail {
+	margin-top: 0px;
+}
+#map .double .apartment.detail-pair {
+	width: 126px;
+}
+#map .double .apartment.right.detail-pair {
+	margin-top: 0px;
+}
+#map .double .apartment.dummy.detail-pair {
+	display: none;
+}
+
+#map .apartment .content .spot-wrapper {
+	margin: 4px;
+}
+
+#map .apartment .content.left .spot-wrapper {
+	float: left;
+}
+
+#map .apartment .content.right .spot-wrapper {
+	float: right;
+}
+
+#map .apartment .spot {
+	background-color: #000;
+	width: 30px;
+	height: 28px;
+	padding: 5px;
+}
+
+#map .quarter .apartment .spot.highlight {
+	opacity: 0 !important;
+}
+
+#map .apartment.highlight {
+	background-color: #CCCC22;
+}
+
+
+.container {
+	text-align: center;
+}
