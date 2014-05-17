@@ -1,11 +1,238 @@
-<!doctype html>
-<title> Portal H8</title>
+<!DOCTYPE html>
+<html ng-app="PortalH8">
+<head>
+    <meta charset="utf-8">
+    <title>Portal H8</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap.no-icons.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap-combined.no-icons.min.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css">
+    <link rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fsocial-buttons.css">
+    <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fjquery.js"></script>
+    <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,300,400,600,700,800" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 
-<h1> Portal H8 </h1>
-<p> Xupa Milhouse </p>
 
-{% if name %}
-  <h1>Hello {{ name }}!</h1>
-{% else %}
-  <h1>Hello World!</h1>
-{% endif %}
+    <script src="/static/javascripts/angular/angular.min.js"></script>
+    <script src="/static/javascripts/map_ui_utils/jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/stylesheets/main.css">
+    <script src="/static/javascripts/angular/controllers/ResidentController.js"></script>
+    <script src="/static/javascripts/map_ui_utils/utils.js"></script>
+    <script src="/static/javascripts/map_ui_utils/application.js"></script>
+
+  <style>
+  	body {
+  		padding-top: 70px;
+        font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+        font-size: 18px;
+        background-color: #f8f8f8;
+  	}
+  	h1, h2, h3 {
+  		text-align: center;
+  		font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+  	}
+  	#wrap {
+  		width: 80%;
+  	}
+  	#imagem {
+  		text-align: center;
+  	}
+  </style>
+</head>
+
+<body>
+	    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar"
+                  data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand">H8</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li class="dropdown">
+                      <a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">Moradores<b class="caret"></b></a>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/residents">Consultar</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/residents/new">Adicionar Moradores</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.youtube.com">Link Legal</a></li>
+                    </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    <div class="container" id="wrap">
+	<h1>Localizador de moradores</h1>
+
+	<body ng-controller="ResidentController">
+	  <div class="container">
+	    <div class="input-group input-group-lg">
+	        <input type="text" class="form-control input-lg" ng-model="query" ng-change="search()" placeholder="Insira o nome do residente..." />
+	      </div>
+	      <div class="dropdown open" ng-show="query.length > 0">
+	      <!-- <ul class="dropdown-menu results" role="menu" aria-labelledby="dropdownMenu1">
+	        <li role="presentation" ng-repeat="item in filteredItems | orderBy:sortingOrder:reverse">
+	                <a role="menuitem" tabindex="-1" href="#">
+	                  <b>{{item.name}}</b>
+	                  <div><i>{{ item }}</i></div>
+	                </a>
+	            </li>
+	      </ul> -->
+	    </div>
+	   </div>
+
+
+	  <div id="map">
+
+	    <div class="quarter-c">
+	      <div class="quarter quarter-top single">
+	        <div class="label">C+</div>
+
+	        <div class="apartment template c-plus">
+	          <div class="number"></div>
+	          <div class="content left">
+	            <div class="spot">F</div>
+	            <div class="spot">E</div>
+	            <div class="spot">D</div>
+	            <div class="spot">A</div>
+	            <div class="spot">B</div>
+	            <div class="spot">C</div>
+	          </div>
+	        </div>
+
+	        <div class="apartment template c-minus">
+	          <div class="number"></div>
+	          <div class="content left">
+	            <div class="spot">F</div>
+	            <div class="spot">E</div>
+	            <div class="spot">D</div>
+	            <div class="spot">A</div>
+	            <div class="spot">B</div>
+	            <div class="spot">C</div>
+	          </div>
+	        </div>
+
+	        <div class="apartment template b-plus-left">
+	          <div class="number"></div>
+	          <div class="content left">
+	            <div class="spot">F</div>
+	            <div class="spot">E</div>
+	            <div class="spot">D</div>
+	            <div class="spot">A</div>
+	            <div class="spot">B</div>
+	            <div class="spot">C</div>
+	          </div>
+	        </div>
+
+	        <div class="apartment template b-plus-right">
+	          <div class="number"></div>
+	          <div class="content right">
+	            <div class="spot">D</div>
+	            <div class="spot">C</div>
+	            <div class="ghost spot">G</div>
+	            <div class="spot">A</div>
+	            <div class="spot">B</div>
+	            <div class="ghost spot">G</div>
+	          </div>
+	        </div>
+
+	        <div class="apartment template b-minus">
+	          <div class="number"></div>
+	          <div class="content left">
+	            <div class="spot">F</div>
+	            <div class="spot">E</div>
+	            <div class="spot">D</div>
+	            <div class="spot">A</div>
+	            <div class="spot">B</div>
+	            <div class="spot">C</div>
+	          </div>
+	        </div>
+
+	        <div class="apartment template a-plus-left">
+	          <div class="number"></div>
+	          <div class="content left">
+	            <div class="spot">D</div>
+	            <div class="spot">C</div>
+	            <div class="ghost spot">G</div>
+	            <div class="spot">A</div>
+	            <div class="spot">B</div>
+	            <div class="ghost spot">G</div>
+	          </div>
+	        </div>
+
+	        <div class="apartment template a-plus-right">
+	          <div class="number"></div>
+	          <div class="content right">
+	            <div class="spot">F</div>
+	            <div class="spot">E</div>
+	            <div class="spot">D</div>
+	            <div class="spot">A</div>
+	            <div class="spot">B</div>
+	            <div class="spot">C</div>
+	          </div>
+	        </div>
+
+	        <div class="apartment template a-minus">
+	          <div class="number"></div>
+	          <div class="content left">
+	            <div class="spot">F</div>
+	            <div class="spot">E</div>
+	            <div class="spot">D</div>
+	            <div class="spot">A</div>
+	            <div class="spot">B</div>
+	            <div class="spot">C</div>
+	          </div>
+	        </div>
+
+	      </div>
+
+
+	      <div class="quarter quarter-bottom single">
+	        <div class="label">C-</div>
+	      </div>
+	    </div>
+
+	    <div class="quarter-b">
+	    
+	      <div class="quarter quarter-top double">
+	        <div class="label">B+</div>
+
+	      </div>
+
+	      <div class="quarter quarter-bottom single">
+	        <div class="label">B-</div>
+	      </div>
+	    </div>
+
+
+	    <div class="quarter-a">
+	      
+	      <div class="quarter quarter-top double">
+	        <div class="label">A+</div>
+	      </div>
+
+	      <div class="quarter quarter-bottom single">
+	        <div class="label">A-</div>
+	      </div>
+	    </div>
+
+	  </div>
+
+
+	  <!-- <div id="map-canvas" class="resident-map"></div> -->
+	</div>
+	</div>
+
+</body>
+</html>

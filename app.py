@@ -26,7 +26,7 @@ def configure_app():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return make_response(open('templates/index.html').read())
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -52,11 +52,9 @@ def add():
 
 	# request.method == 'GET'
 	return render_template('add.html', error=error)
-		
 
-#modify
 @app.route('/<name>', methods=['GET', 'POST'])
-def delete(name):
+def modify(name):
 	error = None
    	#check if admin is logged in
    	if request.method == 'POST':
@@ -115,9 +113,7 @@ def login():
         #return redirect(request.args.get("next") or url_for("index"))
     # return render_template("admin.html")
 
-
-
-# @app.route('/populate')
+# @app.cli.command('populate')
 # def populate():
 #     filename = 'test.csv' # file containing comma separated informations about residents
 #     db.create_all()
@@ -147,4 +143,3 @@ def login():
 
 configure_app()
 app.run(debug=True)
-
